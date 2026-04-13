@@ -169,6 +169,8 @@ Always run `terraform destroy` when done. Clean up orphaned snapshots to avoid o
 - [x] Layer 1: Infrastructure as Code (Terraform) — this lab
 - [x] Layer 2: CI/CD Pipeline (GitHub Actions for terraform fmt/validate)
 - [x] Layer 3: Monitoring (CloudWatch dashboard, compliance metrics Lambda, EventBridge + SNS notifications)
+  - Adds compliance trend dashboard on top of the existing EventBridge + SNS alerts
+  - Visualizes how often unattached volumes appear and whether cleanup succeeds
 - [ ] Layer 4: Finance Domain Twist (SOX compliance — prevent deletion of financial data volumes)
 - [ ] Layer 5: Multi-Cloud Extension (Azure Policy equivalent for unattached managed disks)
 

@@ -204,6 +204,8 @@ Always run `terraform destroy` when done.
 - [x] Layer 1: Infrastructure as Code (Terraform) — this lab
 - [x] Layer 2: CI/CD Pipeline (GitHub Actions for terraform fmt/validate)
 - [x] Layer 3: Monitoring (CloudWatch dashboard, compliance metrics Lambda, EventBridge + SNS notifications)
+  - Dashboard shows per-rule status for all 3 conformance pack rules
+  - Surfaces violations that would otherwise be silently evaluated
 - [ ] Layer 4: Finance Domain Twist (SOX/PCI-DSS conformance pack variant)
 - [ ] Layer 5: Multi-Cloud Extension (Azure Policy Initiative equivalent)
 

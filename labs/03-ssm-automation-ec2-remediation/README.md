@@ -153,5 +153,7 @@ No NAT Gateway is deployed (saves ~$32/month). Always run `terraform destroy` wh
 - [x] Layer 1: Infrastructure as Code (Terraform) — this lab
 - [x] Layer 2: CI/CD Pipeline (GitHub Actions for terraform fmt/validate)
 - [x] Layer 3: Monitoring (CloudWatch dashboard, compliance metrics Lambda, EventBridge + SNS notifications)
+  - Tracks how often the public-subnet rule fires and whether SSM remediations succeed
+  - Helps spot patterns (e.g., repeated launches in public subnets)
 - [ ] Layer 4: Finance Domain Twist (PCI-DSS requirement for network segmentation)
 - [ ] Layer 5: Multi-Cloud Extension (Azure Policy equivalent)

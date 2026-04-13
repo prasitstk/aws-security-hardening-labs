@@ -246,5 +246,7 @@ Always run `terraform destroy` when done to stop the Config recorder and avoid o
 - [x] Layer 1: Infrastructure as Code (Terraform) — this lab
 - [x] Layer 2: CI/CD Pipeline (GitHub Actions for terraform fmt/validate)
 - [x] Layer 3: Monitoring (CloudWatch dashboard, compliance metrics Lambda, EventBridge + SNS notifications)
+  - Dashboard shows compliance trend for `restricted-ssh` and `required-tags` rules
+  - Email alert when someone opens SSH to 0.0.0.0/0 or deploys an untagged instance
 - [ ] Layer 4: Finance Domain Twist (PCI-DSS / SOX compliance rules)
 - [ ] Layer 5: Multi-Cloud Extension (Azure Policy equivalent)

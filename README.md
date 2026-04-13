@@ -168,6 +168,27 @@ This collection follows the [5-Layer Enhancement Model](CLAUDE.md#5-layer-enhanc
 | 4. Finance Domain Twist (PCI-DSS, SOX) | Planned |
 | 5. Multi-Cloud Extension (Azure Policy) | Planned |
 
+### What Layer 3 (Monitoring) Adds
+
+Each lab includes a compliance monitoring stack via the [`config-compliance-dashboard`](shared/modules/config-compliance-dashboard/) shared module:
+
+| Component | What It Does |
+|-----------|-------------|
+| Lambda function | Runs every 5 minutes, polls the Config API for compliance status, publishes custom CloudWatch metrics |
+| CloudWatch Dashboard | 4 widgets: compliance trend over time, per-rule non-compliant resource counts, alarm status, Lambda health |
+| CloudWatch Alarm | Fires when any rule reports non-compliant resources |
+| EventBridge rules | Captures real-time Config compliance change events and forwards to SNS |
+| SNS topic | Delivers email notifications (when `notification_email` is configured) |
+
+**Why it matters per lab:**
+
+- **Lab 01** (restricted-ssh + required-tags) — Instead of manually checking the AWS Console, you get a dashboard showing rule compliance and an email alert the moment someone opens SSH to 0.0.0.0/0 or deploys an untagged instance.
+- **Lab 02** (conformance pack) — The conformance pack silently evaluates 3 rules; monitoring surfaces per-rule status so you know when the instance-count-check or sg-name-check finds violations.
+- **Lab 03** (EC2 in public subnet) — SSM auto-terminates instances in public subnets, but without monitoring you have no visibility into when or how often this happens. The dashboard tracks remediation frequency and patterns.
+- **Lab 04** (EBS volume cleanup) — Already had EventBridge + SNS notifications from Layer 1. Layer 3 adds the CloudWatch dashboard and custom metrics Lambda for trend visualization on top of the existing alerts.
+
+Layer 3 is what separates a learning exercise from a production-ready implementation. It demonstrates that infrastructure is not just deployed but actively **monitored** — compliance trends are visualized, violations trigger alerts, and operational health is tracked.
+
 Additional labs covering Security Hub, IAM Access Analyzer, and CloudTrail + Athena analytics are planned for future additions.
 
 ---
