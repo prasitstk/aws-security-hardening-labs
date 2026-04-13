@@ -28,6 +28,13 @@ flowchart TB
         VPC["VPC + Subnet"]
     end
 
+    subgraph Monitoring["Monitoring (Layer 3)"]
+        EB["EventBridge"]
+        MetricsLambda["Lambda<br/>(compliance metrics)"]
+        CW["CloudWatch Dashboard"]
+        SNS["SNS Topic"]
+    end
+
     Recorder --> S3
     Recorder --> RuleSSH
     Recorder --> RuleTags
@@ -37,6 +44,11 @@ flowchart TB
     RuleTags -.->|evaluates| EC2
     VPC --- SG
     VPC --- EC2
+    RuleSSH -.->|compliance change| EB
+    RuleTags -.->|compliance change| EB
+    EB -->|triggers| MetricsLambda
+    MetricsLambda -->|publishes metrics| CW
+    EB -->|notifies| SNS
 ```
 
 ![Architecture diagram with AWS service icons](./architecture.png)
@@ -232,7 +244,7 @@ Always run `terraform destroy` when done to stop the Config recorder and avoid o
 ## Enhancement Layers
 
 - [x] Layer 1: Infrastructure as Code (Terraform) — this lab
-- [ ] Layer 2: CI/CD Pipeline (GitHub Actions for terraform plan/apply)
-- [ ] Layer 3: Monitoring (CloudWatch dashboard for compliance metrics)
+- [x] Layer 2: CI/CD Pipeline (GitHub Actions for terraform fmt/validate)
+- [x] Layer 3: Monitoring (CloudWatch dashboard, compliance metrics Lambda, EventBridge + SNS notifications)
 - [ ] Layer 4: Finance Domain Twist (PCI-DSS / SOX compliance rules)
 - [ ] Layer 5: Multi-Cloud Extension (Azure Policy equivalent)

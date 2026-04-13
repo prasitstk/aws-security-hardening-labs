@@ -1,5 +1,7 @@
 # AWS Security Hardening Labs
 
+![Terraform CI](https://github.com/prasitstk/aws-security-hardening-labs/actions/workflows/terraform-ci.yml/badge.svg)
+
 A collection of AWS security hardening labs built entirely with Terraform. Explore managed and custom Config rules, SSM-based auto-remediation, compliance dashboards, and event-driven notifications. Designed as a progressive series from basic governance to advanced posture management.
 
 ---
@@ -59,6 +61,7 @@ Reusable Terraform modules consumed by all labs via relative paths:
 |--------|---------|
 | [`config-recorder`](shared/modules/config-recorder/) | AWS Config recorder singleton: IAM role, versioned S3 bucket, recorder, delivery channel |
 | [`config-rule`](shared/modules/config-rule/) | Config rule wrapper supporting managed rules, custom Lambda rules, and optional SSM remediation |
+| [`config-compliance-dashboard`](shared/modules/config-compliance-dashboard/) | Compliance monitoring: custom metrics Lambda, CloudWatch dashboard, alarms, EventBridge + SNS |
 
 See each module's README for usage examples and input/output documentation.
 
@@ -80,15 +83,19 @@ aws-security-hardening-labs/
   LICENSE
   .gitignore
   .devcontainer/devcontainer.json
-  .github/dependabot.yml
+  .github/
+    dependabot.yml
+    workflows/terraform-ci.yml  # Layer 2: CI/CD pipeline
+  tests/validate.sh             # Local validation script
   docs/
   shared/
     modules/
-      config-recorder/          # Singleton Config recorder + S3 + IAM
-      config-rule/              # Config rule + optional SSM remediation
+      config-recorder/                  # Singleton Config recorder + S3 + IAM
+      config-rule/                      # Config rule + optional SSM remediation
+      config-compliance-dashboard/      # Layer 3: CloudWatch dashboard + metrics Lambda + alarms + SNS
     policies/
-      config-service-role.json  # IAM trust policy template
-      config-s3-delivery.json   # S3 bucket policy template
+      config-service-role.json          # IAM trust policy template
+      config-s3-delivery.json           # S3 bucket policy template
   labs/
     01-config-rules-compliance-baseline/
     02-custom-rules-conformance-packs/
@@ -127,8 +134,8 @@ This collection follows the [5-Layer Enhancement Model](CLAUDE.md#5-layer-enhanc
 | Layer | Status |
 |-------|--------|
 | 1. Infrastructure as Code (Terraform) | Done — all labs |
-| 2. CI/CD Pipeline (GitHub Actions) | Planned |
-| 3. Monitoring & Observability (CloudWatch) | Planned |
+| 2. CI/CD Pipeline (GitHub Actions) | Done — terraform fmt/validate on push and PR |
+| 3. Monitoring & Observability (CloudWatch) | Done — compliance dashboard, metrics Lambda, alarms, EventBridge + SNS |
 | 4. Finance Domain Twist (PCI-DSS, SOX) | Planned |
 | 5. Multi-Cloud Extension (Azure Policy) | Planned |
 

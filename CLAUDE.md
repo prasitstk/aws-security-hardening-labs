@@ -29,6 +29,7 @@ Labs consume reusable modules via relative paths (e.g., `source = "../../../../s
 
 - **`shared/modules/config-recorder/`** — Singleton per region. Creates IAM role, versioned+encrypted S3 bucket, Config recorder (CONTINUOUS mode), and delivery channel. Labs must `depends_on` this before adding rules.
 - **`shared/modules/config-rule/`** — Wraps managed (`source_owner = "AWS"`) or custom Lambda rules. Supports JSON `input_parameters`, scoped resource types, and optional SSM remediation. Remediation parameters use a `map(string)` where the value `"RESOURCE_ID"` maps to `resource_value` and anything else becomes `static_value`.
+- **`shared/modules/config-compliance-dashboard/`** — Layer 3 monitoring stack. Creates a Lambda that polls Config compliance status and publishes custom CloudWatch metrics, a dashboard, a non-compliant alarm, EventBridge rules for compliance change events, and SNS notifications. Requires `archive` provider.
 - **`shared/policies/`** — JSON templates for IAM trust policy and S3 bucket policy (uses `${account_id}` / `${bucket_name}` interpolation via `templatefile`).
 
 ### Lab Structure Pattern
@@ -56,10 +57,10 @@ All labs use the same provider constraints: Terraform `>= 1.5`, AWS provider `>=
 
 | Lab | Status | Layers |
 |-----|--------|--------|
-| 01 — Config Rules Compliance Baseline | Complete | 1 (IaC) |
-| 02 — Custom Rules and Conformance Packs | Complete | 1 (IaC) |
-| 03 — SSM Automation EC2 Remediation | Complete | 1 (IaC) |
-| 04 — EBS Volume Cleanup with Config Remediation | Complete | 1 (IaC) |
+| 01 — Config Rules Compliance Baseline | Complete | 1 (IaC), 2 (CI/CD), 3 (Monitoring) |
+| 02 — Custom Rules and Conformance Packs | Complete | 1 (IaC), 2 (CI/CD), 3 (Monitoring) |
+| 03 — SSM Automation EC2 Remediation | Complete | 1 (IaC), 2 (CI/CD), 3 (Monitoring) |
+| 04 — EBS Volume Cleanup with Config Remediation | Complete | 1 (IaC), 2 (CI/CD), 3 (Monitoring) |
 | 05-07 — Security Posture labs | Pending migration | — |
 
 ## AWS Provider v6 Gotchas

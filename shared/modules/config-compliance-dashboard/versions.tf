@@ -12,15 +12,3 @@ terraform {
     }
   }
 }
-
-provider "aws" {
-  region = var.aws_region
-
-  default_tags {
-    tags = {
-      Project   = "aws-security-hardening-labs"
-      Lab       = "01-config-rules-compliance-baseline"
-      ManagedBy = "terraform"
-    }
-  }
-}

@@ -28,6 +28,11 @@ output "sns_topic_arn" {
   value       = aws_sns_topic.config_notifications.arn
 }
 
+output "dashboard_name" {
+  description = "Name of the CloudWatch compliance dashboard"
+  value       = module.compliance_dashboard.dashboard_name
+}
+
 output "test_volume_id" {
   description = "ID of the noncompliant test EBS volume (null if test resources disabled)"
   value       = var.create_test_resources ? aws_ebs_volume.test_unattached[0].id : null

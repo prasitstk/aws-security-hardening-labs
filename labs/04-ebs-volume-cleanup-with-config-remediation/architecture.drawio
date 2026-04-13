@@ -1,14 +1,14 @@
 <mxfile host="65bd71144e">
     <diagram id="lab04-arch" name="Architecture">
-        <mxGraphModel dx="527" dy="563" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="900" pageHeight="820" math="0" shadow="0">
+        <mxGraphModel dx="527" dy="563" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="900" pageHeight="920" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
                 <mxCell id="2" value="AWS Cloud" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=12;fontStyle=0;container=1;pointerEvents=0;collapsible=0;recursiveResize=0;strokeColor=#232F3E;fillColor=none;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_aws_cloud_alt;verticalAlign=top;align=left;spacingLeft=30;dashed=0;" parent="1" vertex="1">
-                    <mxGeometry x="20" y="20" width="860" height="760" as="geometry"/>
+                    <mxGeometry x="20" y="20" width="860" height="860" as="geometry"/>
                 </mxCell>
                 <mxCell id="3" value="us-east-1" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=12;fontStyle=0;container=1;pointerEvents=0;collapsible=0;recursiveResize=0;strokeColor=#147EBA;fillColor=none;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_region;verticalAlign=top;align=left;spacingLeft=30;dashed=1;" parent="2" vertex="1">
-                    <mxGeometry x="15" y="45" width="830" height="700" as="geometry"/>
+                    <mxGeometry x="15" y="45" width="830" height="800" as="geometry"/>
                 </mxCell>
                 <mxCell id="4" value="IAM Role&lt;br&gt;(Config)" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.role;" parent="3" vertex="1">
                     <mxGeometry x="140" y="40" width="78" height="78" as="geometry"/>
@@ -39,6 +39,13 @@
                 </mxCell>
                 <mxCell id="13" value="EBS Snapshot" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#3F8624;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.snapshot;" parent="3" vertex="1">
                     <mxGeometry x="460" y="550" width="78" height="78" as="geometry"/>
+                </mxCell>
+                <!-- New Layer 3 icons -->
+                <mxCell id="50" value="Lambda&lt;br&gt;(metrics publisher)" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.lambda_function;" parent="3" vertex="1">
+                    <mxGeometry x="530" y="370" width="78" height="78" as="geometry"/>
+                </mxCell>
+                <mxCell id="51" value="CloudWatch&lt;br&gt;(dashboard)" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.cloudwatch;" parent="3" vertex="1">
+                    <mxGeometry x="660" y="550" width="78" height="78" as="geometry"/>
                 </mxCell>
                 <mxCell id="20" value="assumes role" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#232F3E;strokeWidth=1.5;fontSize=11;fontColor=#232F3E;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;startArrow=classic;startFill=1;endArrow=none;endFill=0;" parent="3" source="4" target="5" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
@@ -113,6 +120,14 @@
                             <mxPoint x="80" y="575"/>
                         </Array>
                     </mxGeometry>
+                </mxCell>
+                <!-- Edge: EventBridge -> Lambda (solid, triggers) -->
+                <mxCell id="52" value="triggers" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#232F3E;strokeWidth=1.5;fontSize=11;fontColor=#232F3E;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="3" source="8" target="50" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <!-- Edge: Lambda -> CloudWatch (solid, publishes metrics) -->
+                <mxCell id="53" value="publishes metrics" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#232F3E;strokeWidth=1.5;fontSize=11;fontColor=#232F3E;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="3" source="50" target="51" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>

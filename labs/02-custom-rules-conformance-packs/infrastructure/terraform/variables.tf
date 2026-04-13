@@ -27,6 +27,12 @@ variable "required_sg_name" {
   default     = "my-security-group"
 }
 
+variable "notification_email" {
+  description = "Email address for compliance SNS notifications. Leave empty to skip."
+  type        = string
+  default     = ""
+}
+
 variable "create_test_resources" {
   description = "Whether to create intentionally noncompliant test resources."
   type        = bool

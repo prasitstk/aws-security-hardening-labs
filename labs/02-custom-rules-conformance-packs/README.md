@@ -37,8 +37,19 @@ flowchart TB
         EC2_NC["EC2 (noncompliant)"]
     end
 
+    subgraph Monitoring["Monitoring (Layer 3)"]
+        EB["EventBridge"]
+        MetricsLambda["Lambda\n(compliance metrics)"]
+        CW["CloudWatch Dashboard"]
+        SNS["SNS Topic"]
+    end
+
     Rule2 -.->|evaluates| SG
     Rule3 -.->|evaluates| SG
+    Pack -.->|compliance change| EB
+    EB -->|triggers| MetricsLambda
+    MetricsLambda -->|publishes metrics| CW
+    EB -->|notifies| SNS
 ```
 
 ![Architecture diagram with AWS service icons](./architecture.png)
@@ -191,8 +202,8 @@ Always run `terraform destroy` when done.
 ## Enhancement Layers
 
 - [x] Layer 1: Infrastructure as Code (Terraform) — this lab
-- [ ] Layer 2: CI/CD Pipeline (GitHub Actions for terraform plan/apply)
-- [ ] Layer 3: Monitoring (CloudWatch dashboard for conformance pack compliance)
+- [x] Layer 2: CI/CD Pipeline (GitHub Actions for terraform fmt/validate)
+- [x] Layer 3: Monitoring (CloudWatch dashboard, compliance metrics Lambda, EventBridge + SNS notifications)
 - [ ] Layer 4: Finance Domain Twist (SOX/PCI-DSS conformance pack variant)
 - [ ] Layer 5: Multi-Cloud Extension (Azure Policy Initiative equivalent)
 

@@ -43,6 +43,16 @@ output "ssm_automation_role_arn" {
   value       = aws_iam_role.ssm_automation.arn
 }
 
+output "dashboard_name" {
+  description = "Name of the CloudWatch compliance dashboard"
+  value       = module.compliance_dashboard.dashboard_name
+}
+
+output "sns_topic_arn" {
+  description = "ARN of the compliance notification SNS topic"
+  value       = module.compliance_dashboard.sns_topic_arn
+}
+
 output "test_instance_id" {
   description = "ID of the noncompliant test EC2 instance (null if test resources disabled)"
   value       = var.create_test_resources ? aws_instance.test_public_ec2[0].id : null

@@ -21,6 +21,16 @@ output "config_rule_arns" {
   }
 }
 
+output "dashboard_name" {
+  description = "Name of the CloudWatch compliance dashboard"
+  value       = module.compliance_dashboard.dashboard_name
+}
+
+output "sns_topic_arn" {
+  description = "ARN of the compliance notification SNS topic"
+  value       = module.compliance_dashboard.sns_topic_arn
+}
+
 output "test_security_group_id" {
   description = "ID of the noncompliant test security group (null if test resources disabled)"
   value       = var.create_test_resources ? aws_security_group.test_open_ssh[0].id : null

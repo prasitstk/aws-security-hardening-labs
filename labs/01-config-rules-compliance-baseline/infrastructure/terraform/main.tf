@@ -63,6 +63,22 @@ module "rule_required_tags" {
   depends_on = [module.config_recorder]
 }
 
+# --- Compliance Monitoring Dashboard (Layer 3) ---
+
+module "compliance_dashboard" {
+  source = "../../../../shared/modules/config-compliance-dashboard"
+
+  project_name       = var.project_name
+  config_rule_names  = ["restricted-ssh", "required-tags"]
+  notification_email = var.notification_email
+  tags               = local.common_tags
+
+  depends_on = [
+    module.rule_restricted_ssh,
+    module.rule_required_tags,
+  ]
+}
+
 # --- Test Resources (optional, for validating noncompliant evaluations) ---
 
 data "aws_ami" "amazon_linux_2" {

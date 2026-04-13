@@ -22,6 +22,8 @@ flowchart TB
     S3["S3 Bucket (delivery)"]
     EB["EventBridge"]
     SNS["SNS Topic"]
+    MetricsLambda["Lambda<br/>(compliance metrics)"]
+    CW["CloudWatch Dashboard"]
     SSM["SSM Automation<br/>AWSConfigRemediation-<br/>DeleteUnusedEBSVolume"]
 
     subgraph EBS["EBS Resources"]
@@ -42,6 +44,8 @@ flowchart TB
     SSM -->|creates| Snapshot
     SSM -->|deletes| Volume
     SSM -->|status change| EB
+    EB -->|triggers| MetricsLambda
+    MetricsLambda -->|publishes metrics| CW
 ```
 
 ![Architecture diagram with AWS service icons](./architecture.png)
@@ -163,8 +167,8 @@ Always run `terraform destroy` when done. Clean up orphaned snapshots to avoid o
 ## Enhancement Layers
 
 - [x] Layer 1: Infrastructure as Code (Terraform) — this lab
-- [ ] Layer 2: CI/CD Pipeline (GitHub Actions for terraform plan/apply)
-- [ ] Layer 3: Monitoring (CloudWatch dashboard for compliance metrics, remediation success rate)
+- [x] Layer 2: CI/CD Pipeline (GitHub Actions for terraform fmt/validate)
+- [x] Layer 3: Monitoring (CloudWatch dashboard, compliance metrics Lambda, EventBridge + SNS notifications)
 - [ ] Layer 4: Finance Domain Twist (SOX compliance — prevent deletion of financial data volumes)
 - [ ] Layer 5: Multi-Cloud Extension (Azure Policy equivalent for unattached managed disks)
 

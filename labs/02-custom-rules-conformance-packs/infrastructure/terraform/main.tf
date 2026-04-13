@@ -210,6 +210,21 @@ resource "aws_config_conformance_pack" "ec2_compliance" {
 }
 
 # =============================================================================
+# Compliance Monitoring Dashboard (Layer 3)
+# =============================================================================
+
+module "compliance_dashboard" {
+  source = "../../../../shared/modules/config-compliance-dashboard"
+
+  project_name       = var.project_name
+  config_rule_names  = ["instance-count-check", "sg-name-check", "restricted-ssh"]
+  notification_email = var.notification_email
+  tags               = local.common_tags
+
+  depends_on = [aws_config_conformance_pack.ec2_compliance]
+}
+
+# =============================================================================
 # Test Resources (optional — gated by var.create_test_resources)
 # =============================================================================
 

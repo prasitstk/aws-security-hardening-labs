@@ -28,6 +28,16 @@ output "conformance_pack_arn" {
   value       = aws_config_conformance_pack.ec2_compliance.arn
 }
 
+output "dashboard_name" {
+  description = "Name of the CloudWatch compliance dashboard"
+  value       = module.compliance_dashboard.dashboard_name
+}
+
+output "sns_topic_arn" {
+  description = "ARN of the compliance notification SNS topic"
+  value       = module.compliance_dashboard.sns_topic_arn
+}
+
 output "test_instance_ids" {
   description = "Instance IDs of the test EC2 instances (null if test resources disabled)."
   value = var.create_test_resources ? {

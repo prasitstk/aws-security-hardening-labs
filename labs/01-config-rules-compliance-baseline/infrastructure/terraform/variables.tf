@@ -21,6 +21,12 @@ variable "config_bucket_name" {
   type        = string
 }
 
+variable "notification_email" {
+  description = "Email address for compliance SNS notifications. Leave empty to skip."
+  type        = string
+  default     = ""
+}
+
 variable "create_test_resources" {
   description = "Whether to create test resources that trigger noncompliant evaluations."
   type        = bool

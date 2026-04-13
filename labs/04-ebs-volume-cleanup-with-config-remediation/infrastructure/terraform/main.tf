@@ -180,7 +180,20 @@ resource "aws_cloudwatch_event_target" "sns_remediation" {
   arn       = aws_sns_topic.config_notifications.arn
 }
 
-# --- Section 5: Test Resources ---
+# --- Section 5: Compliance Dashboard (Layer 3) ---
+
+module "compliance_dashboard" {
+  source = "../../../../shared/modules/config-compliance-dashboard"
+
+  project_name       = var.project_name
+  config_rule_names  = ["ec2-volume-inuse-check"]
+  notification_email = var.notification_email
+  tags               = local.common_tags
+
+  depends_on = [module.rule_ec2_volume_inuse]
+}
+
+# --- Section 6: Test Resources ---
 
 resource "aws_ebs_volume" "test_unattached" {
   count = var.create_test_resources ? 1 : 0

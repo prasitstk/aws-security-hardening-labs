@@ -39,6 +39,12 @@ variable "private_subnet_cidr" {
   default     = "10.100.2.0/24"
 }
 
+variable "notification_email" {
+  description = "Email address for compliance SNS notifications. Leave empty to skip."
+  type        = string
+  default     = ""
+}
+
 variable "create_test_resources" {
   description = "Whether to create a test EC2 instance in the public subnet to trigger noncompliant evaluation."
   type        = bool

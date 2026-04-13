@@ -322,6 +322,21 @@ resource "aws_iam_role_policy" "ssm_automation" {
 }
 
 # =============================================================================
+# Compliance Monitoring Dashboard (Layer 3)
+# =============================================================================
+
+module "compliance_dashboard" {
+  source = "../../../../shared/modules/config-compliance-dashboard"
+
+  project_name       = var.project_name
+  config_rule_names  = ["ec2-in-public-subnet"]
+  notification_email = var.notification_email
+  tags               = local.common_tags
+
+  depends_on = [module.rule_ec2_public_subnet]
+}
+
+# =============================================================================
 # Test Resources (optional) — Noncompliant EC2 in Public Subnet
 # =============================================================================
 
