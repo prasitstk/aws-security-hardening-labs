@@ -1,0 +1,9 @@
+aws_region             = "us-east-1"
+project_name           = "config-rules-compliance-baseline"
+environment            = "dev"
+config_bucket_name     = "my-config-delivery-bucket-CHANGE-ME"
+create_test_resources  = true
+
+tags = {
+  Owner = "your-name"
+}

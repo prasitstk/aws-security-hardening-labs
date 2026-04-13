@@ -1,0 +1,15 @@
+aws_region     = "us-east-1"
+project_name   = "ssm-automation-ec2-remediation"
+environment    = "dev"
+
+# Must be globally unique across all AWS accounts
+config_bucket_name = "my-config-delivery-lab03-CHANGE-ME"
+
+# VPC CIDR configuration
+vpc_cidr            = "10.100.0.0/16"
+public_subnet_cidr  = "10.100.1.0/24"
+private_subnet_cidr = "10.100.2.0/24"
+
+# Set to true to create a test EC2 instance in the public subnet
+# (noncompliant — will be auto-terminated by SSM remediation)
+create_test_resources = true

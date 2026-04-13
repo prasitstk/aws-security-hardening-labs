@@ -1,0 +1,11 @@
+aws_region                   = "us-east-1"
+project_name                 = "ebs-volume-cleanup"
+environment                  = "dev"
+config_bucket_name           = "my-config-delivery-bucket-CHANGE-ME"
+notification_email           = ""
+create_snapshot_before_delete = true
+create_test_resources        = true
+
+tags = {
+  Owner = "your-name"
+}

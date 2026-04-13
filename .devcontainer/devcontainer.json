@@ -1,0 +1,48 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/ubuntu
+{
+	"name": "Ubuntu",
+	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+	"image": "mcr.microsoft.com/devcontainers/base:noble",
+	"features": {
+		"ghcr.io/devcontainers/features/aws-cli:1": {},
+		"ghcr.io/devcontainers/features/terraform:1": {},
+		"ghcr.io/devcontainers/features/git-lfs:1": {}
+	},
+	"secrets": {
+		"AWS_ACCESS_KEY_ID": {
+			"description": "AWS access key associated with an IAM user or role.",
+			"documentationUrl": "https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html#envvars-list"
+		},
+		"AWS_SECRET_ACCESS_KEY": {
+			"description": "the secret key associated with the access key (AWS_ACCESS_KEY_ID). This is essentially the password for that access key.",
+			"documentationUrl": "https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html#envvars-list"
+		}
+	},
+	
+	// Features to add to the dev container. More info: https://containers.dev/features.
+	// "features": {},
+	
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [],
+	
+	// Use 'postCreateCommand' to run commands after the container is created.
+	// "postCreateCommand": "uname -a",
+	
+	// Configure tool-specific properties.
+	"customizations": {
+		"settings": {
+			"editor.tabSize": 2,
+			"hediet.vscode-drawio.theme": "Kennedy"
+		},
+		"vscode": {
+			"extensions": [
+				"bierner.markdown-mermaid",
+				"hediet.vscode-drawio"
+			]
+		}
+	}
+
+	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+	// "remoteUser": "root"
+}

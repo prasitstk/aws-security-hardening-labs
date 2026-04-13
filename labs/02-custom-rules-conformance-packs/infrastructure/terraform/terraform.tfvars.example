@@ -1,0 +1,16 @@
+aws_region    = "us-east-1"
+project_name  = "custom-rules-conformance-packs"
+environment   = "dev"
+
+# REQUIRED: Set a globally unique bucket name
+config_bucket_name = "your-unique-config-bucket-name"
+
+# Security group name required by the Guard custom policy rule
+required_sg_name = "my-security-group"
+
+# Set to false to skip creating test EC2 instances and VPC
+create_test_resources = true
+
+tags = {
+  Owner = "your-name"
+}
