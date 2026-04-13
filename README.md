@@ -53,6 +53,35 @@ terraform destroy
 
 ---
 
+## Local Validation
+
+Run the validation script before pushing to catch formatting and syntax issues locally (the same checks that CI runs on GitHub):
+
+```bash
+# From the repo root
+bash tests/validate.sh
+```
+
+This finds every Terraform directory under `shared/modules/` and `labs/`, then runs `terraform init`, `fmt -check`, and `validate` on each. Expected output when everything passes:
+
+```
+=== Terraform Validation Suite ===
+
+Validating labs/01-config-rules-compliance-baseline/infrastructure/terraform... OK
+Validating labs/02-custom-rules-conformance-packs/infrastructure/terraform... OK
+Validating labs/03-ssm-automation-ec2-remediation/infrastructure/terraform... OK
+Validating labs/04-ebs-volume-cleanup-with-config-remediation/infrastructure/terraform... OK
+Validating shared/modules/config-compliance-dashboard... OK
+Validating shared/modules/config-recorder... OK
+Validating shared/modules/config-rule... OK
+
+All checks passed
+```
+
+> **Note:** Each `terraform init` downloads the AWS provider, so the first run requires internet access and takes a minute or two.
+
+---
+
 ## Shared Modules
 
 Reusable Terraform modules consumed by all labs via relative paths:
