@@ -7,8 +7,15 @@
 	"features": {
 		"ghcr.io/devcontainers/features/aws-cli:1": {},
 		"ghcr.io/devcontainers/features/terraform:1": {},
-		"ghcr.io/devcontainers/features/git-lfs:1": {}
+		"ghcr.io/devcontainers/features/git-lfs:1": {},
+		"ghcr.io/anthropics/devcontainer-features/claude-code:1.0": {}
 	},
+
+		// This mount persists your Claude Code credentials and settings by linking your local .claude folder to the dev container so you don't have to log in every time it restarts.
+	"mounts": [
+    "source=${localEnv:HOME}/.claude,target=/home/vscode/.claude,type=bind"
+  ],
+
 	"secrets": {
 		"AWS_ACCESS_KEY_ID": {
 			"description": "AWS access key associated with an IAM user or role.",
@@ -37,6 +44,7 @@
 		},
 		"vscode": {
 			"extensions": [
+				"anthropic.claude-code",
 				"bierner.markdown-mermaid",
 				"hediet.vscode-drawio"
 			]
