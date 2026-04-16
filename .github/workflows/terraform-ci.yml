@@ -18,8 +18,8 @@ jobs:
           - shared/modules/config-rule
           - shared/modules/config-compliance-dashboard
     steps:
-      - uses: actions/checkout@v4
-      - uses: hashicorp/setup-terraform@v3
+      - uses: actions/checkout@v5
+      - uses: hashicorp/setup-terraform@v4
         with:
           terraform_version: "1.5"
       - name: Terraform Init
@@ -42,8 +42,8 @@ jobs:
           - labs/03-ssm-automation-ec2-remediation/infrastructure/terraform
           - labs/04-ebs-volume-cleanup-with-config-remediation/infrastructure/terraform
     steps:
-      - uses: actions/checkout@v4
-      - uses: hashicorp/setup-terraform@v3
+      - uses: actions/checkout@v5
+      - uses: hashicorp/setup-terraform@v4
         with:
           terraform_version: "1.5"
       - name: Terraform Init

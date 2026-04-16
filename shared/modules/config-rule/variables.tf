@@ -37,7 +37,7 @@ variable "evaluation_frequency" {
   default     = null
 
   validation {
-    condition     = var.evaluation_frequency == null || contains(["One_Hour", "Three_Hours", "Six_Hours", "Twelve_Hours", "TwentyFour_Hours"], var.evaluation_frequency)
+    condition     = var.evaluation_frequency == null ? true : contains(["One_Hour", "Three_Hours", "Six_Hours", "Twelve_Hours", "TwentyFour_Hours"], var.evaluation_frequency)
     error_message = "evaluation_frequency must be one of: One_Hour, Three_Hours, Six_Hours, Twelve_Hours, TwentyFour_Hours."
   }
 }
